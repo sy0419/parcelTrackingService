@@ -27,7 +27,7 @@ public class DeliveryController {
 
     @GetMapping("/{invoiceNumber}") 
     public ResponseEntity<?> getDelivery(@PathVariable String invoiceNumber) {
-        Delivery delivery = deliveryService.findByInvoiceNumber(invoiceNumber).orElse(null);
+        Delivery delivery = deliveryService.findByInvoiceNumber(invoiceNumber);
         if (delivery == null) {
             return ResponseEntity.notFound().build();
         }
