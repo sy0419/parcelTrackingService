@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.delivery.exception.DeliveryNotFoundException;
 import com.example.delivery.model.Delivery;
+import com.example.delivery.model.DeliveryStatus;
 import com.example.delivery.repository.DeliveryRepository;
 
 @Service
@@ -20,5 +21,14 @@ public class DeliveryService {
     public Delivery findByInvoiceNumber(String invoiceNumber) {
         return deliveryRepository.findById(invoiceNumber)
             .orElseThrow(() -> new DeliveryNotFoundException(invoiceNumber));
+    }
+
+    public Delivery changeStatus(String invoiceNumber, String newStatus) {
+        Delivery delivery = findByInvoiceNumber(invoiceNumber);
+        DeliveryStatus requestedStatus = DeliveryStatus.valueOf(newStatus.toUpperCase());
+        DeliveryStatus currentStatus = delivery.getStatus();
+        if (!currentStatus.canMoveTo(requestedStatus)) {
+
+        }
     }
 }
