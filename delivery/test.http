@@ -1,80 +1,46 @@
-### 배송 등록 요청 (POST)
+### 1. 배송 등록 (Create Delivery)
 POST http://localhost:8080/deliveries
 Content-Type: application/json
 
 {
-  "invoiceNumber": "ABC123456",
-  "status": "PREPARING",
-  "expectedArrivalDate": "2025-09-21T15:00:00"
-}
-
-###
-
-### 배송 조회 요청 (GET)
-GET http://localhost:8080/deliveries/ABC123456
-
-### 없는 송장번호 조회 (GET) - 404 확인
-GET http://localhost:8080/deliveries/NO_SUCH_INVOICE
-Accept: application/json
-
-###
-
-### 배송 상태 변경 (PUT) - 상태 변경 API 만들고 테스트 예시
-PUT http://localhost:8080/deliveries/ABC123456/status
-Content-Type: application/json
-
-{
-  "status": "SHIPPED"
-}
-
-###
-
-### 잘못된 데이터 보내기 (POST) - status 누락 및 잘못된 값
-POST http://localhost:8080/deliveries
-Content-Type: application/json
-
-{
-  "invoiceNumber": "XYZ7891011",
-  "status": "INVALID_STATUS",
-  "expectedArrivalDate": "2025-09-25T12:00:00"
-}
-
-###
-
-POST http://localhost:8080/deliveries
-Content-Type: application/json
-
-{
-  "expectedArrivalDate": "2025-09-25T12:00:00"
-}
-
-###
-
-### 전체 배송 목록 조회 (GET) - 목록 API 구현 후 테스트
-GET http://localhost:8080/deliveries
-Accept: application/json
-
-###
-
-### 도착 예정일 계산 테스트 (추후 구현)
-POST http://localhost:8080/deliveries
-Content-Type: application/json
-
-{
-  "invoiceNumber": "CALC123456",
+  "invoiceNumber": "TEST123456",
   "status": "PREPARING"
 }
 
-GET http://localhost:8080/deliveries/CALC123456
+###
+
+### 2. 배송 단건 조회 (Get Delivery)
+GET http://localhost:8080/deliveries/TEST123456
 Accept: application/json
 
 ###
 
-### 응답 포맷 일관성 확인 - 다양한 요청에 대해 확인
-GET http://localhost:8080/deliveries/ABC123456
+### 3. 배송 상태 변경 - PREPARING → SHIPPED
+PUT http://localhost:8080/deliveries/TEST123456/status
+Content-Type: application/json
+
+{
+  "newStatus": "SHIPPED"
+}
+
+###
+
+### 4. 상태 변경 후 도착예정일 확인
+GET http://localhost:8080/deliveries/TEST123456
 Accept: application/json
 
 ###
 
-GET http://localhost:8080/deliveries/NO_SUCH_INVOICE
+### 5. 유효하지 않은 상태 변경 (SHIPPED → PREPARING 불가능)
+PUT http://localhost:8080/deliveries/TEST123456/status
+Content-Type: application/json
+
+{
+  "newStatus": "PREPARING"
+}
+
+###
+
+### 6. 존재하지 않는 송장 조회 (예외 처리 확인)
+GET http://localhost:8080/deliveries/NOT_EXIST
 Accept: application/json
