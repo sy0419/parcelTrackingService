@@ -58,6 +58,10 @@ public class DeliveryService {
             throw new InvalidStatusChangeException("Cannot change status from " 
             + currentStatus + " to " + requestedStatus);
         }
+        // 배송 상태를 요청된 상태로 변경
+        // Change delivery status to the requested status
+        delivery.setStatus(requestedStatus);
+        
         // 상태가 SHIPPED일 경우 도착예정일을 3일 후로 설정
         // If status is SHIPPED, set expected arrival date to 3 days from now
         if (requestedStatus == DeliveryStatus.SHIPPED) {
