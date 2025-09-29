@@ -58,29 +58,6 @@ public class DeliveryService {
             throw new InvalidStatusChangeException("Cannot change status from " 
             + currentStatus + " to " + requestedStatus);
         }
-        delivery.setStatus(requestedStatus);
-        return deliveryRepository.save(delivery);
-    }
-
-    /**
-     * 배송 상태 변경과 도착예정일 계산 처리
-     * Change delivery status and calculate expected arrival date
-     *
-     * @param invoiceNumber 송장번호 # Invoice number
-     * @param newStatus 변경 요청 상태 문자열 # New requested status string
-     * @return 변경된 배송 객체 # Updated delivery object
-     * @throws InvalidStatusChangeException 유효하지 않은 상태 변경 시 예외 발생 # Throws exception on invalid status change
-     */
-    public Delivery calculateExpectedArrivalDate(String invoiceNumber, String newStatus) {
-        Delivery delivery = findByInvoiceNumber(invoiceNumber);
-        DeliveryStatus requestedStatus = DeliveryStatus.valueOf(newStatus.toUpperCase());
-        DeliveryStatus currentStatus = delivery.getStatus();
-
-        if (!currentStatus.canMoveTo(requestedStatus)) {
-            throw new InvalidStatusChangeException("Cannot change status from " 
-                + currentStatus + " to " + requestedStatus);
-        }
-
         // 상태가 SHIPPED일 경우 도착예정일을 3일 후로 설정
         // If status is SHIPPED, set expected arrival date to 3 days from now
         if (requestedStatus == DeliveryStatus.SHIPPED) {
