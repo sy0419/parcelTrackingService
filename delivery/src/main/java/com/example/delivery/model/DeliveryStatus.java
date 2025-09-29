@@ -15,16 +15,20 @@ public enum DeliveryStatus {
      */
     public boolean canMoveTo(DeliveryStatus nextStatus){
         if (null != this) switch (this) {
-            case PREPARING:
+            case PREPARING -> {
                 return nextStatus == SHIPPED;
-            case SHIPPED:
+            }
+            case SHIPPED -> {
                 return nextStatus == IN_TRANSIT;
-            case IN_TRANSIT:
+            }
+            case IN_TRANSIT -> {
                 return nextStatus == DELIVERED;
-            case DELIVERED:
+            }
+            case DELIVERED -> {
                 return false;
-            default:
-                break;
+            }
+            default -> {
+            }
         }
         return false;
     }
