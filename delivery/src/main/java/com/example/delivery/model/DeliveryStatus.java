@@ -14,11 +14,15 @@ public enum DeliveryStatus {
      * @return boolean 이동 가능하면 true, 불가능하면 false # true if transition allowed, else false
      */
     public boolean canMoveTo(DeliveryStatus nextStatus){
-        return switch (this) {
-            case PREPARING -> nextStatus == SHIPPED;
-            case SHIPPED -> nextStatus == IN_TRANSIT;
-            case IN_TRANSIT -> nextStatus == DELIVERED;
-            case DELIVERED -> false;  // 더 이상 이동 불가 # No further transitions
-        };
+        if (this == PREPARING) {
+            return nextStatus == SHIPPED;
+        } else if (this == SHIPPED) {
+            return nextStatus == IN_TRANSIT;
+        } else if (this == IN_TRANSIT) {
+            return nextStatus == DELIVERED;
+        } else if (this == DELIVERED) {
+            return false;
+        }
+        return false;
     }
 }

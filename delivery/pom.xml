@@ -70,21 +70,25 @@
 					</excludes>
 				</configuration>
 			</plugin>
-		 <plugin>
-		  <groupId>org.apache.maven.plugins</groupId>
-		  <artifactId>maven-compiler-plugin</artifactId>
-		  <configuration>
-		   <annotationProcessorPaths>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version> <!-- 최신 버전으로 지정 추천 -->
+				<configuration>
+					<source>24</source>
+					<target>24</target>
+					<annotationProcessorPaths>
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
+							<version>${lombok.version}</version> <!-- lombok 버전도 명시 필요 -->
 						</path>
 					</annotationProcessorPaths>
-		   <compilerArgs>
-		    <arg>--enable-preview</arg>
-		   </compilerArgs>
-		  </configuration>
-		 </plugin>
+					<compilerArgs>
+						<arg>--enable-preview</arg> <!-- preview 기능 사용할 때만! -->
+					</compilerArgs>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

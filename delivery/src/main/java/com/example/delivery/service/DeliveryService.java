@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.delivery.exception.DeliveryNotFoundException;
+import com.example.delivery.exception.InvalidStatusChangeException;
 import com.example.delivery.model.Delivery;
 import com.example.delivery.model.DeliveryStatus;
 import com.example.delivery.repository.DeliveryRepository;
@@ -28,7 +29,10 @@ public class DeliveryService {
         DeliveryStatus requestedStatus = DeliveryStatus.valueOf(newStatus.toUpperCase());
         DeliveryStatus currentStatus = delivery.getStatus();
         if (!currentStatus.canMoveTo(requestedStatus)) {
-
+            throw new InvalidStatusChangeException("Cannot change status from " 
+            + currentStatus + " to " + requestedStatus);
         }
+        delivery.setStatus(requestedStatus);
+        return deliveryRepository.save(delivery);
     }
 }
