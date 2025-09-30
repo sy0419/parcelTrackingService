@@ -1,5 +1,5 @@
 // 1. 요소 선택  # Select HTML elements
-const input = document.getElementById('invoiceInput');
+const input = document.getElementById('invoiceNumber');
 const button = document.getElementById('searchButton');
 const result = document.getElementById('resultArea');
 
