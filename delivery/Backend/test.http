@@ -1,0 +1,46 @@
+### 1. 배송 등록 (Create Delivery)
+POST http://localhost:8080/deliveries
+Content-Type: application/json
+
+{
+  "invoiceNumber": "TEST123456",
+  "status": "PREPARING"
+}
+
+###
+
+### 2. 배송 단건 조회 (Get Delivery)
+GET http://localhost:8080/deliveries/TEST123456
+Accept: application/json
+
+###
+
+### 3. 배송 상태 변경 - PREPARING → SHIPPED
+PUT http://localhost:8080/deliveries/TEST123456/status
+Content-Type: application/json
+
+{
+  "newStatus": "SHIPPED"
+}
+
+###
+
+### 4. 상태 변경 후 도착예정일 확인
+GET http://localhost:8080/deliveries/TEST123456
+Accept: application/json
+
+###
+
+### 5. 유효하지 않은 상태 변경 (SHIPPED → PREPARING 불가능)
+PUT http://localhost:8080/deliveries/TEST123456/status
+Content-Type: application/json
+
+{
+  "newStatus": "PREPARING"
+}
+
+###
+
+### 6. 존재하지 않는 송장 조회 (예외 처리 확인)
+GET http://localhost:8080/deliveries/NOT_EXIST
+Accept: application/json
