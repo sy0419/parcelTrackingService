@@ -27,7 +27,7 @@
 		<url/>
 	</scm>
 	<properties>
-		<java.version>24</java.version>
+		<java.version>21</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -75,18 +75,14 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.11.0</version> <!-- 최신 버전으로 지정 추천 -->
 				<configuration>
-					<source>24</source>
-					<target>24</target>
+					<release>21</release>
 					<annotationProcessorPaths>
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
-							<version>${lombok.version}</version> <!-- lombok 버전도 명시 필요 -->
+							<version>1.18.30</version> <!-- lombok 버전도 명시 필요 -->
 						</path>
 					</annotationProcessorPaths>
-					<compilerArgs>
-						<arg>--enable-preview</arg> <!-- preview 기능 사용할 때만! -->
-					</compilerArgs>
 				</configuration>
 			</plugin>
 		</plugins>
