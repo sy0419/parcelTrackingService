@@ -25,6 +25,11 @@ public class DeliveryService {
      * @return 저장된 배송 객체 # Saved delivery object
      */
     public Delivery save(Delivery delivery) {
+        if (delivery.getExpectedArrivalDate() == null) {
+            delivery.setExpectedArrivalDate(LocalDateTime.now()); 
+        }
+        delivery.setCreatedAt(LocalDateTime.now());
+        delivery.setUpdatedAt(LocalDateTime.now());
         return deliveryRepository.save(delivery);
     }
 
