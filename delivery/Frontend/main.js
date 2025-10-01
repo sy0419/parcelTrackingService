@@ -8,7 +8,7 @@ button.addEventListener('click', function () {
   const invoiceNumber = input.value;
 
   // ✅ 3. fetch API 호출
-  fetch(`http://localhost:8080/api/delivery/${invoiceNumber}`)
+  fetch(`http://localhost:8080/deliveries/${invoiceNumber}`)
     .then(response => {
       if (!response.ok) {
         throw new Error('송장번호 조회 실패');
@@ -20,7 +20,7 @@ button.addEventListener('click', function () {
       result.innerHTML = `
         <p><strong>송장번호:</strong> ${data.invoiceNumber}</p>
         <p><strong>배송 상태:</strong> ${data.status}</p>
-        <p><strong>도착 예정일:</strong> ${data.estimatedArrival}</p>
+        <p><strong>도착 예정일:</strong> ${data.expectedArrivalDate}</p>
       `;
     })
     .catch(error => {
